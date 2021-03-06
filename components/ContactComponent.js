@@ -6,7 +6,7 @@ class Contact extends Component {
     render() {
         return (
             <ScrollView>
-                <Card>
+                <Card wrapperStyle={{margin: 20}}>
                     <Text>
                         {"1 Nucamp Way\n"}
                         {"Seattle, WA 98001\n"}
