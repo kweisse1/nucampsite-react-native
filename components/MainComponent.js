@@ -102,11 +102,11 @@ const DirectoryNavigator = createStackNavigator(
         initialRouteName: 'Directory',
         defaultNavigationOptions: {
             headerStyle: {
-                backgroundColor: '#5637DD'
+                backgroundColor: '#5637DD'//blue
             },
-            headerTintColor: '#fff',
+            headerTintColor: '#fff',//white
             headerTitleStyle: {
-                color: '#fff'
+                color: '#fff'//white
             }
         }
     }
@@ -120,7 +120,7 @@ const MainNavigator = createDrawerNavigator(
         Contact: { screen: ContactNavigator }
     },
     {
-        drawerBackgroundColor: '#CEC8FF'
+        drawerBackgroundColor: '#CEC8FF'//lavander
     }
 )
 
@@ -144,7 +144,7 @@ class Main extends Component {
 const styles = StyleSheet.create({
     stackIcon: {
         marginLeft:10,
-        color: '#fff',
+        color: '#fff',//#fff is white
         fontSize: 24
     }
 })
