@@ -16,7 +16,7 @@ function RenderItem({ item }) {
         )
     }
     return <View>
-        <Text>RenderItem works but does not receive item</Text>
+        <Text>RenderItem runs but does not receive item</Text>
     </View>
 }
 
