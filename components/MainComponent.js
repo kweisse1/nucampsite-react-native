@@ -203,7 +203,7 @@ const MainNavigator = createDrawerNavigator(
                 drawerLabel: 'Reserve Campsite',
                 drawerIcon: ({tintColor}) => (
                     <Icon
-                        name='list'
+                        name='tree'
                         type='font-awesome'
                         size={24}
                         color={tintColor}
