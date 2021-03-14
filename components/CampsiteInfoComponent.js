@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, FlatList, Modal, Button, StyleSheet } from 'react-native';
-import { Card, Icon } from 'react-native-elements';
+import { Card, Icon, Input, Rating } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 import { postFavorite } from '../redux/ActionCreators';
@@ -58,7 +58,13 @@ function RenderComments({ comments }) {
         return (
             <View style={{ margin: 10 }}>
                 <Text style={{ fontSize: 14 }}>{item.text}</Text>
-                <Text style={{ fontSize: 12 }}>{item.rating}</Text>
+                <Rating 
+                    readonly 
+                    style={{alignItems: 'flex-start', paddingVertical: '5%'}} 
+                    imageSize={13}
+                    startingValue={item.rating}
+
+                />
                 <Text style={{ fontSize: 12 }}>{`--${item.author}, ${item.date}`}</Text>
             </View>
         )
@@ -80,12 +86,30 @@ class CampsiteInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showModal: false
+            showModal: false,
+            rating: 5,
+            author: '',
+            text: ''
         }
     }
     
     toggleModal() {
         this.setState({showModal: !this.state.showModal});
+    }
+
+    //handle comment from week 2 workshop task 2
+    handleComment(campsiteId){
+        console.log(JSON.stringify(this.state));
+        this.toggleModal();
+    }
+    //reset form from week 2 workshop task 2
+    resetForm() {
+        this.setState({
+            showModal: false,
+            rating: 5,
+            author: '',
+            text: ''
+        })
     }
 
     markFavorite(campsiteId) {
@@ -114,10 +138,38 @@ class CampsiteInfo extends Component {
                     visible={this.state.showModal}
                     onRequestClose={() => this.toggleModal()}
                 >
-                    <View>
-                        <View>
+                    <View style={styles.modal}>
+                        <Rating
+                            showRating
+                            startingValue={this.state.rating}
+                            imageSize={40}
+                            onFinishRating={rating => this.setState({rating: rating})}
+                            style={{padingVertical: 10}}
+                        />
+                        <Input
+                            placeholder='Author'
+                            leftIcon={{type: 'font-awesome', name: 'user-o'}}
+                            leftIconContainerStyle={{paddingRight: 10}}
+                            onChangeText={author => this.setState({author: author})}
+                            value={this.state.author}
+                        />
+                        <Input
+                            placeholder='Comment'
+                            leftIcon={{type: 'font-awesome', name: 'user-o'}}
+                            leftIconContainerStyle={{paddingRight: 10}} 
+                            onChangeText={text => this.setState({text: text})}
+                            value={this.state.text}
+                        />
+                        <View style={{margin: 10}}>
                             <Button
-                                onPress={() => { this.toggleModal }}
+                                onPress={() => { this.handleComment(campsiteId) }}
+                                color='#808080'
+                                title='Submit'
+                            />
+                        </View>
+                        <View style={{margin: 10}}>
+                            <Button
+                                onPress={() => { this.toggleModal() }}
                                 color='#808080'
                                 title='Cancel'
                             />
