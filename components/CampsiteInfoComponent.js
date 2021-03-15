@@ -3,7 +3,7 @@ import { Text, View, ScrollView, FlatList, Modal, Button, StyleSheet } from 'rea
 import { Card, Icon, Input, Rating } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
-import { postFavorite } from '../redux/ActionCreators';
+import { postFavorite, postComment } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
@@ -132,6 +132,7 @@ class CampsiteInfo extends Component {
                     onShowModal={() => this.toggleModal()}
                 />
                 <RenderComments comments={comments} />
+                {/* add comment modal */}
                 <Modal
                     animationType={'slide'}
                     transparent={false}
