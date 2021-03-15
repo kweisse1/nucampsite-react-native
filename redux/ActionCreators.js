@@ -41,7 +41,7 @@ export const postComment = (camsiteId, rating, author, text) => dispatch => {
     };
 
     setTimeout(() => {
-        dispatch(addComment(newComment));
+        dispatch(addComment(newComment))
     }, 2000);
 }
 
