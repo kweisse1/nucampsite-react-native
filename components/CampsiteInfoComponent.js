@@ -59,7 +59,7 @@ function RenderCampsite(props) {
             <Animatable.View 
             animation='fadeInDown' 
             duration={2000} delay={1000}
-            {...PanResponder.panHandlers}> 
+            {...panResponder.panHandlers}> 
                 <Card
                     featuredTitle={campsite.info}
                     image={{ uri: baseUrl + campsite.image }}>
