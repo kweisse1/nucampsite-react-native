@@ -139,12 +139,12 @@ class CampsiteInfo extends Component {
         this.setState({showModal: !this.state.showModal});
     }
 
-    //handle comment from week 2 workshop task 2
+    //handle comment
     handleComment(campsiteId){
         this.props.postComment(campsiteId, this.state.rating, this.state.author, this.state.text);
         this.toggleModal();
     }
-    //reset form from week 2 workshop task 2
+    //reset form
     resetForm() {
         this.setState({
             showModal: false,
@@ -194,14 +194,14 @@ class CampsiteInfo extends Component {
                             leftIcon={{type: 'font-awesome', name: 'user-o'}}
                             leftIconContainerStyle={{paddingRight: 10}}
                             onChangeText={author => this.setState({author: author})}
-                            // value={this.state.author}
+                            value={this.state.author}
                         />
                         <Input
                             placeholder='Comment'
-                            leftIcon={{type: 'font-awesome', name: 'user-o'}}
+                            leftIcon={{type: 'font-awesome', name: 'comment-o'}}
                             leftIconContainerStyle={{paddingRight: 10}} 
                             onChangeText={text => this.setState({text: text})}
-                            // value={this.state.text}
+                            value={this.state.text}
                         />
                         <View style={{margin: 10}}>
                             <Button
@@ -216,7 +216,7 @@ class CampsiteInfo extends Component {
                         <View style={{margin: 10}}>
                             <Button
                                 onPress={() => { 
-                                    {this.toggleModal()};
+                                    this.toggleModal();
                                     this.resetForm();
                                 }}
                                 color='#808080'
