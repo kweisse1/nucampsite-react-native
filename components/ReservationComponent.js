@@ -24,11 +24,11 @@ class Reservation extends Component {
     }
 
     reserveAlert = () => {
-        const formVals = `Number of Campers: ${this.state.campers}\n\nHike in? ${this.state.hikeIn}\n\nDate: ${this.state.date.toLocaleDateString('en-US')}`
+        const message = `Number of Campers: ${this.state.campers}\n\nHike in? ${this.state.hikeIn}\n\nDate: ${this.state.date.toLocaleDateString('en-US')}`
 
         Alert.alert(
             "Begin Search?",
-            formVals,
+            message,
             [
                 {
                     text: "Cancel",
