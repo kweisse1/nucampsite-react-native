@@ -6,6 +6,7 @@ import CampsiteInfo from './CampsiteInfoComponent';
 import About from './AboutComponent';
 import Contact from './ContactComponent';
 import Favorites from './FavoritesComponent';
+import Login from './LoginComponent';
 
 import { View, Platform, Text, StyleSheet, Image } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -24,6 +25,29 @@ const mapDispatchToProps = {
     fetchPromotions,
     fetchPartners
 };
+
+const LoginNavigator = createStackNavigator(
+    {
+        Login: { screen: Login }
+    },
+    {
+        defaultNavigationOptions:({navigation}) => ({
+            headerStyle: {
+                backgroundColor: '#5637DD'
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: '#fff'
+            },
+            headerLeft: <Icon
+                name='sign-in'
+                type='font-awesome'
+                iconStyle={style.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+            />
+        })
+    }
+);
 
 const HomeNavigator = createStackNavigator(
     {
