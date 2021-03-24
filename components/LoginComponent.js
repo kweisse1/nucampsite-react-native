@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Button, StyleSheet, CheckBox } from 'react-native';
+import { View, Button, StyleSheet } from 'react-native';
 import { Input, Checkbox } from 'react-native-elements';
 import * as SecureStore from 'expo-secure-store';
 
@@ -22,17 +22,12 @@ class Login extends Component {
     handleLogin() {
         console.log(JSON.stringify(this.state));
         if (this.state.remember){
-            SecureStore.setItemAsync(
-                'userinfo',
-                JSON.stringify({
-                    username: this.state.username,
-                    password: this.state.password
-                })
-            ).catch(error => console.log('Could not save user info', error));
+            SecureStore.setItemAsync('userinfo', JSON.stringify(
+                    {username: this.state.username, password: this.state.password}))
+                    .catch(error => console.log('Could not save user info', error));
         } else {
-            SecureStore.deleteItemAsync('userinfo').catch(
-                error => console.log('Could not delete user info', error)
-            );
+            SecureStore.deleteItemAsync('userinfo')
+            .catch(error => console.log('Could not delete user info', error));
         }
     }
 
@@ -86,7 +81,7 @@ class Login extends Component {
     }
 }
 
-const style=StyleSheet.create({
+const styles=StyleSheet.create({
     container: {
         justifyContent: 'center',
         margin: 20
@@ -104,6 +99,6 @@ const style=StyleSheet.create({
     formButton: {
         margin: 40
     }
-})
+});
 
 export default Login;

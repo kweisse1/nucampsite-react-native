@@ -42,7 +42,7 @@ const LoginNavigator = createStackNavigator(
             headerLeft: <Icon
                 name='sign-in'
                 type='font-awesome'
-                iconStyle={style.stackIcon}
+                iconStyle={styles.stackIcon}
                 onPress={() => navigation.toggleDrawer()}
             />
         })
@@ -219,6 +219,19 @@ const CustomDrawerContentComponent = props => (
 
 const MainNavigator = createDrawerNavigator(
     {
+        Login: { 
+            screen: LoginNavigator,
+            navigationOptions: {
+                drawerIcon: ({tintColor}) => (
+                    <Icon
+                        name='sign-in'
+                        type='font-awesome'
+                        size={24}
+                        color={tintColor}
+                    />
+                )
+            }
+        },
         Home: { 
             screen: HomeNavigator,
             navigationOptions: {
