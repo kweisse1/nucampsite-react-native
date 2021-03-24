@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, 
-    FlatList, Modal, Button, StyleSheet, 
-    Alert, PanResponder } from 'react-native';
+import {
+    Text, View, ScrollView,
+    FlatList, Modal, Button, StyleSheet,
+    Alert, PanResponder, Share
+} from 'react-native';
 import { Card, Icon, Input, Rating } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
@@ -27,14 +29,14 @@ function RenderCampsite(props) {
 
     const view = React.createRef();
 
-    const recognizeDrag = ({dx}) => (dx < -200) ? true: false;
-    const recognizeComment = ({dx}) => (dx > 200) ? true: false;
+    const recognizeDrag = ({ dx }) => (dx < -200) ? true : false;
+    const recognizeComment = ({ dx }) => (dx > 200) ? true : false;
 
     const panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true,
-        onPanResponderGrant: ()=> {
+        onPanResponderGrant: () => {
             view.current.rubberBand(1000)
-            .then(endState => console.log(endState.finished ? 'finished': 'canceled'));
+                .then(endState => console.log(endState.finished ? 'finished' : 'canceled'));
         },
         onPanResponderEnd: (e, gestureState) => {
             console.log('pan responder end', gestureState);
@@ -56,19 +58,29 @@ function RenderCampsite(props) {
                     ],
                     { cancelable: false }
                 );
-            } else if (recognizeComment(gestureState)){
+            } else if (recognizeComment(gestureState)) {
                 props.onShowModal();
             }
             return true;
         }
-    })
+    });
+
+    const shareCampsite = (title, message, url) => {
+        Share.share({
+            title: title,
+            message: `${title}: ${message} ${url}`,
+            url: url
+        }, {
+            dialogTitle: 'Share' + title
+        });
+    };
 
     if (campsite) {
         return (
-            <Animatable.View 
-            animation='fadeInDown' 
-            duration={2000} delay={1000} ref={view}
-            {...panResponder.panHandlers}> 
+            <Animatable.View
+                animation='fadeInDown'
+                duration={2000} delay={1000} ref={view}
+                {...panResponder.panHandlers}>
                 <Card
                     featuredTitle={campsite.info}
                     image={{ uri: baseUrl + campsite.image }}>
@@ -91,6 +103,13 @@ function RenderCampsite(props) {
                             raised reverse
                             onPress={() => props.onShowModal()}
                         />
+                        <Icon
+                            name={'share'}
+                            type='font-awesome'
+                            color='#5637DD'
+                            raised reverse
+                            onPress={() => shareCampsite(campsite.name, campsite.description, baseUrl + campsite.image)}
+                        />
                     </View>
                 </Card>
             </Animatable.View>
@@ -99,15 +118,15 @@ function RenderCampsite(props) {
     return <View />;
 }
 
-function RenderComments({comments}) {
+function RenderComments({ comments }) {
 
     const renderCommentItem = ({ item }) => {
         return (
             <View style={{ margin: 10 }}>
                 <Text style={{ fontSize: 14 }}>{item.text}</Text>
-                <Rating 
-                    readonly imageSize={13} 
-                    style={{alignItems: 'flex-start', paddingVertical: '5%'}} 
+                <Rating
+                    readonly imageSize={13}
+                    style={{ alignItems: 'flex-start', paddingVertical: '5%' }}
                     startingValue={item.rating}
                 />
                 <Text style={{ fontSize: 12 }}>{`--${item.author}, ${item.date}`}</Text>
@@ -137,15 +156,15 @@ class CampsiteInfo extends Component {
             text: ''
         }
 
-        this.toggleModal= this.toggleModal.bind(this)
+        this.toggleModal = this.toggleModal.bind(this)
     }
 
     toggleModal() {
-        this.setState({showModal: !this.state.showModal});
+        this.setState({ showModal: !this.state.showModal });
     }
 
     //handle comment
-    handleComment(campsiteId){
+    handleComment(campsiteId) {
         this.props.postComment(campsiteId, this.state.rating, this.state.author, this.state.text);
         this.toggleModal();
     }
@@ -191,36 +210,36 @@ class CampsiteInfo extends Component {
                             showRating
                             startingValue={this.state.rating}
                             imageSize={40}
-                            onFinishRating={rating => this.setState({rating: rating})}
-                            style={{padingVertical: 10}}
+                            onFinishRating={rating => this.setState({ rating: rating })}
+                            style={{ padingVertical: 10 }}
                         />
                         <Input
                             placeholder='Author'
-                            leftIcon={{type: 'font-awesome', name: 'user-o'}}
-                            leftIconContainerStyle={{paddingRight: 10}}
-                            onChangeText={author => this.setState({author: author})}
+                            leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+                            leftIconContainerStyle={{ paddingRight: 10 }}
+                            onChangeText={author => this.setState({ author: author })}
                             value={this.state.author}
                         />
                         <Input
                             placeholder='Comment'
-                            leftIcon={{type: 'font-awesome', name: 'comment-o'}}
-                            leftIconContainerStyle={{paddingRight: 10}} 
-                            onChangeText={text => this.setState({text: text})}
+                            leftIcon={{ type: 'font-awesome', name: 'comment-o' }}
+                            leftIconContainerStyle={{ paddingRight: 10 }}
+                            onChangeText={text => this.setState({ text: text })}
                             value={this.state.text}
                         />
-                        <View style={{margin: 10}}>
+                        <View style={{ margin: 10 }}>
                             <Button
-                                onPress={() => { 
+                                onPress={() => {
                                     this.handleComment(campsiteId);
-                                    this.resetForm(); 
+                                    this.resetForm();
                                 }}
                                 color='#5637DD'
                                 title='Submit'
                             />
                         </View>
-                        <View style={{margin: 10}}>
+                        <View style={{ margin: 10 }}>
                             <Button
-                                onPress={() => { 
+                                onPress={() => {
                                     this.toggleModal();
                                     this.resetForm();
                                 }}
