@@ -43,7 +43,7 @@ class Contact extends Component {
                                 color='#fff'
                                 iconStyle={{marginRight: 10}}
                             />}
-                            onPress={() => this.sendMail}
+                            onPress={() => this.sendMail()}
                         />
                     </Card>
                 </Animatable.View>
