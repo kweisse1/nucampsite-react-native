@@ -316,6 +316,7 @@ const MainNavigator = createDrawerNavigator(
         }
     },
     {
+        initialRouteName: 'Home',
         drawerBackgroundColor: '#CEC8FF', //lavender
         contentComponent: CustomDrawerContentComponent
     }
