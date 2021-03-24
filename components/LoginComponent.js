@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Button, StyleSheet } from 'react-native';
-import { Input, Checkbox } from 'react-native-elements';
+import { Input, CheckBox } from 'react-native-elements';
 import * as SecureStore from 'expo-secure-store';
 
 class Login extends Component {
@@ -69,13 +69,13 @@ class Login extends Component {
                     onPress={() => this.setState({remember: !this.state.remember})}
                     containerStyle={styles.formCheckbox}
                 />
-                <Vew style={styles.formButton}>
+                <View style={styles.formButton}>
                     <Button
                         onPress={() => this.handleLogin()}
                         title='Login'
                         color='#5637DD'
                     />
-                </Vew>
+                </View>
             </View>
         );
     }
