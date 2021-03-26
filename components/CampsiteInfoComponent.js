@@ -108,7 +108,7 @@ function RenderCampsite(props) {
                             type='font-awesome'
                             color='#5637DD'
                             raised reverse
-                            onPress={() => shareCampsite(campsite.name, campsite.description, baseUrl + campsite.image)}
+                            onPress={() => shareCampsite(campsite.name, campsite.description, baseUrl + campsite)}
                         />
                     </View>
                 </Card>
