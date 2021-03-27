@@ -338,6 +338,35 @@ class Main extends Component {
                 ? Alert.alert('Initial Network Connectivity Type:', connectionInfo.type)
                 : ToastAndroid.show('Initial Network Connectivity Type: ' + connectionInfo.type, ToastAndroid.LONG);
         });
+
+        this.unsubscribeNetInfo = NetInfo.addEventListener(connectionInfo => {
+            this.handleConnectivityChange(connectionInfo);
+        });
+    }
+
+    componentWillUnmount() {
+        this.unsubscribeNetInfo();
+    }
+
+    handleConnectivityChange = connectionInfo => {
+        let connectionMsg = 'You are connected to an active network.';
+        switch (connectionInfo.type){
+            case 'none':
+                connectionMsg = 'No network connection';
+                break;
+            case 'unknown':
+                connectionMsg = 'Network connection state unknown';
+                break;
+            case 'cellular':
+                connectionMsg = 'You are now connected to a cellular network';
+                break;
+            case 'none':
+                connectionMsg = 'You are now connected to a WiFi network';
+                break;
+        }
+        (Platform.OS === 'ios')
+            ? Alert.alert('Connection change:', connectionMsg)
+            : ToastAndroid.show(connectionMsg, ToastAndroid.LONG);
     }
 
     render() {
