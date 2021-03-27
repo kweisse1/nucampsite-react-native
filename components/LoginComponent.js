@@ -167,23 +167,25 @@ class RegisterTab extends Component {
     getImageFromGallery = async () => {
         const cameraRollPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
 
-        if (cameraRollPermission.status === 'granted'){
+        if (cameraRollPermission.status === 'granted') {
             const capturedImage = await ImagePicker.launchImageLibraryAsync({
                 allowsEditing: true,
-                aspect: [1,1]
+                aspect: [1, 1]
             });
+            if (!capturedImage.cancelled) {
+                console.log(capturedImage);
+                this.processImage(capturedImage.uri);
+            }
+
         }
-        if (!capturedImage.cancelled) {
-            console.log(capturedImage);
-            this.processImage(capturedImage.uri);
-        }
+
     }
 
     processImage = async (imageUri) => {
         const processedImage = await ImageManipulator.manipulateAsync(
-            imageUri, 
-            [{resize: {width: 400}}], 
-            {format: ImageManipulator.SaveFormat.PNG});
+            imageUri,
+            [{ resize: { width: 400 } }],
+            { format: ImageManipulator.SaveFormat.PNG });
         console.log(processedImage);
         this.setState({ imageUrl: processedImage.uri });
     }
@@ -293,7 +295,7 @@ const Login = createBottomTabNavigator(
             inactiveBackgroundColor: '#CEC8FF',
             activeTintColor: '#fff',
             inactiveTintColor: '#808080',
-            labelStyle: {fontSize: 16}
+            labelStyle: { fontSize: 16 }
         }
     }
 );
