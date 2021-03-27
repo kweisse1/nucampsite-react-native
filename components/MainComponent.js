@@ -8,7 +8,7 @@ import Contact from './ContactComponent';
 import Favorites from './FavoritesComponent';
 import Login from './LoginComponent';
 
-import { View, Platform, Text, StyleSheet, Image } from 'react-native';
+import { View, Platform, Text, StyleSheet, Image, Alert, ToastAndroid } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 import { createAppContainer } from 'react-navigation';
